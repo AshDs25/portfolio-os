@@ -14,7 +14,7 @@ const About = () => {
         {
           aboutData.map((data,index) => (
             <li key={index}>
-              <span className='text-red-600'>{`[${data.keyword}]: `}</span>{data.text}
+              <span className='warn-text'>{`[${data.keyword}]: `}</span>{data.text}
             </li> 
           ))
         }

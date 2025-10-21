@@ -11,7 +11,7 @@ const ThemesComp = ({val}:{val:string | undefined}) => {
   return (
     <>
         {
-            val && themesObj[val] ? <div>{val != '6' ? `Themes: ${themesObj[val]} Theme Applied!` :  'Exited Theme Switcher'}</div> : <div className='text-red-500'>Themes: Theme not found</div>
+            val && themesObj[val] ? <div>{val != '6' ? `Themes: ${themesObj[val]} Theme Applied!` :  'Exited Theme Switcher'}</div> : <div className='warn-text'>Themes: Theme not found</div>
         }
     </>
   )

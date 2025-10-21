@@ -7,25 +7,7 @@
 
 :root {
   --theme-bg: #000; /* default fallback */
-}
-
-
-.terminal:hover::-webkit-scrollbar {
-  width: 5px;
-}
-
-.terminal::-webkit-scrollbar-thumb {
-  background: rgba(0, 255, 0, 0.4);
-  border-radius: 3px;
-}
-
-.terminal::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-@keyframes blink-cursor {
-  0%, 50% { opacity: 1; background-color: #0aff0a; }
-  51%, 100% { opacity: 0; background-color: transparent; }
+  --header-text:#d3d1d1;
 }
 
 .matrix-bg {
@@ -42,17 +24,93 @@
 }
 
 [data-theme="matrix"] {
-  --theme-bg: #000;
+  --theme-bg: #002000;
+  --regular-text: #0aff0a;
+  --warn-text: #e7000b;
+  --user-line: #ba88f5;
+  /* border needs to be themed */
+  --border-color: #0aff0a;
+  --scroll-thumb: rgba(10, 255, 10, 0.4);
+  --terminal-bg: #000;
+   --terminal-shadow: 0 0 25px 2px rgba(0, 255, 0, 0.25);
 }
 
 [data-theme="ubuntu"] {
-  --theme-bg: #77216F;
+  --theme-bg: #300A24;        /* official Ubuntu terminal purple */
+  --regular-text: #EEEEEE;    /* light gray for text */
+  --warn-text: #FF6C37;       /* canonical orange-red warning */
+  --user-line: #E95420;       /* Ubuntu orange prompt */
+  --border-color: #E95420;    /* matching accent border */
+   --scroll-thumb: rgba(238, 238, 238, 0.4);
+   --terminal-bg: #3d0f2f;  
+   --terminal-shadow: 0 0 20px 2px rgba(233, 84, 32, 0.2);
+   
 }
 
+
 [data-theme="tokyo"] {
-  --theme-bg: #1a1b26;
+  --theme-bg: #1a1b26;        /* deep night */
+  --regular-text: #c0caf5;    /* soft bluish white */
+  --warn-text: #f7768e;       /* warm pink-red for errors */
+  --user-line: #7dcfff;       /* cyan-blue for prompt */
+  --border-color: #414868;    /* subtle blue-gray border */
+  --scroll-thumb: rgba(192, 202, 245, 0.4);
+  --terminal-bg: #24283b;  
+  --terminal-shadow: 0 0 25px 2px rgba(125, 207, 255, 0.15);     
 }
 
 [data-theme="one"] {
-  --theme-bg: #fafafa;
+  --theme-bg: #fafafa;        /* near-white background */
+  --regular-text: #383a42;    /* dark neutral gray text */
+  --warn-text: #e45649;       /* muted red */
+  --user-line: #4078f2;       /* strong blue prompt */
+  --border-color: #979797;    /* subtle gray border */
+  --scroll-thumb: rgba(56, 58, 66, 0.4);
+  --terminal-bg: #f0f0f0;
+  --header-text:#383a42;
+  --terminal-shadow: 0 0 10px 6px rgba(0, 0, 0, 0.1); 
+}
+
+.terminal-shadow{
+  box-shadow: var(--terminal-shadow);
+}
+
+.warn-text{
+  color:var(--warn-text);
+}
+.terminal-bg{
+  background-color:var(--terminal-bg);
+}
+.username-text{
+  color:var(--user-line);
+}
+.terminal-text{
+  color:var(--regular-text);
+}
+.terminal-border{
+  border: 1px solid var(--border-color);
+}
+.terminal-header-border{
+  border-bottom: 1px solid var(--border-color);
+}
+.terminal-header-text{
+  color:var(--header-text);
+}
+
+@keyframes blink-cursor {
+  0%, 50% { opacity: 1; background-color: var(--regular-text); }
+  51%, 100% { opacity: 0; background-color: transparent; }
+}
+
+.terminal:hover::-webkit-scrollbar {
+  width: 5px;
+}
+
+.terminal::-webkit-scrollbar-thumb {
+  background: var(--scroll-thumb);
+  border-radius: 3px;
+}
+
+.terminal::-webkit-scrollbar-track {
+  background: transparent;
 }

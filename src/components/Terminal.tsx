@@ -88,38 +88,38 @@ export default function Terminal({setTheme}:{setTheme:(arg0:string)=>void}) {
 
     if(isThemeSwitcher){
       if(trimmedText == '6'){
-        setIsThemeSwitcher(false)
-        setHistory((prev) => [...prev,{command:"themes",isTheme:true,arg:trimmedText}]);
-        setAllHistory((prev) => [...prev,{command:"themes",isTheme:true,arg:trimmedText}])
+        setIsThemeSwitcher(false);
       }
       if(!['5','6'].includes(trimmedText) && themesObj[trimmedText]){
         setTheme(themesObj[trimmedText].toLowerCase())
       }
-      setHistory((prev) => [...prev,{command:trimmedText=='5'?'themes':'themesComp',isTheme:isThemeSwitcher,arg:trimmedText}])
-      setAllHistory((prev) => [...prev,{command:trimmedText=='5'?'themes':'themesComp',isTheme:isThemeSwitcher,arg:trimmedText}])
+      const updateObj = {command:trimmedText=='5'?'themes':'themesComp',isTheme:isThemeSwitcher,arg:trimmedText}
+      setHistory((prev) => [...prev,updateObj])
+      setAllHistory((prev) => [...prev,updateObj])
       setCommand("");
       return;
     }
 
-    if (trimmedText === "default") {
-      setHistory((prev) => [...prev, {command:trimmedText,isTheme:isThemeSwitcher}]);
-      setAllHistory((prev) => [...prev, {command:trimmedText,isTheme:isThemeSwitcher}]);
-      setCommand("");
-      return;
-    }
-
+    
     if (trimmedText === 'themes'){
       setIsThemeSwitcher(true);
-      setHistory((prev) => [...prev, {command:trimmedText,isTheme:true}]);
-      setAllHistory((prev) => [...prev, {command:trimmedText,isTheme:true}]);
+      const updateObj = {command:trimmedText,isTheme:true};
+      setHistory((prev) => [...prev, updateObj]);
+      setAllHistory((prev) => [...prev, updateObj]);
       setCommand("");
       return
     }
+    
+    const updateObj = {command:trimmedText,isTheme:isThemeSwitcher}
+    setHistory((prev) => [...prev, updateObj]);
+    setAllHistory((prev) => [...prev, updateObj]);
 
 
-    setHistory((prev) => [...prev, {command:trimmedText,isTheme:isThemeSwitcher}]);
-    setAllHistory((prev) => [...prev, {command:trimmedText,isTheme:isThemeSwitcher}]);
     setCommand(""); // clear after submit
+
+    if (trimmedText === "default") {
+      return;
+    }
     checkForRedirect(trimmedText);
   };
 
@@ -205,9 +205,9 @@ export default function Terminal({setTheme}:{setTheme:(arg0:string)=>void}) {
         <div
           className={`
              fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]
-             border text-[#0aff0a] rounded-lg shadow-lg
+             terminal-border terminal-text rounded-lg terminal-shadow
              w-full max-w-md lg:min-w-[600px] 
-             flex flex-col max-h-[400px] transition-[min-height,width,opacity] duration-500
+             flex flex-col max-h-[400px] transition-[min-height,width,opacity,color,background-color] duration-500
              ${minMax == "max" ? "min-h-[600px]" : "min-h-[400px]"}
              ${show ? "opacity-100 z-2" : "opacity-0 -z-2"}
          `}
@@ -215,7 +215,7 @@ export default function Terminal({setTheme}:{setTheme:(arg0:string)=>void}) {
         >
 
           {/*Header */}    
-          <div className="flex items-center space-x-2 border-b-2 rounded-t-[0.5rem] p-2 bg-black" id='header'>
+          <div className="flex items-center space-x-2 terminal-header-border rounded-t-[0.5rem] p-2 terminal-bg" id='header'>
             <div
               className="h-3 w-3 rounded-full bg-red-500 transition-shadow duration-300 hover:shadow-[0_0_10px_#ef4444,0_0_20px_#ef4444,0_0_30px_#ef4444] cursor-pointer"
               onClick={toggleShow}
@@ -225,13 +225,13 @@ export default function Terminal({setTheme}:{setTheme:(arg0:string)=>void}) {
               onClick={handleShow}
             ></div>
             <div className="h-3 w-3 rounded-full bg-green-500 cursor-pointer transition-shadow duration-300 hover:shadow-[0_0_10px_#00c950,0_0_20px_#00c950,0_0_30px_#00c950]" onClick={toggleMinMax}></div>
-            <span className="mx-auto font-mono text-sm text-[#d3d1d1]">
+            <span className="mx-auto font-mono text-sm terminal-header-text">
               Ashlyn Dsilva:~/portfolio$
             </span>
           </div>
 
           {/* Body */}
-          <div className="flex-1 w-full overflow-y-auto bg-black rounded-b-[0.5rem] terminal" onClick={()=>{inputRef.current?.focus();setCursorShow(true);}}>
+          <div className="flex-1 w-full overflow-y-auto terminal-bg rounded-b-[0.5rem] terminal" onClick={()=>{inputRef.current?.focus();setCursorShow(true);}}>
             <div>
               {showIntro && (
                 <div className="px-4 py-3">{commands["default"]() || null}</div>
@@ -241,7 +241,7 @@ export default function Terminal({setTheme}:{setTheme:(arg0:string)=>void}) {
                
                 <div className="px-4 py-3" key={index}>
                   <>
-                    <span className="whitespace-nowrap text-[#ba88f5]">
+                    <span className="whitespace-nowrap username-text">
                       ashlyn:~/portfolio{cmd.isTheme?'/themes':''}$
                     </span>
                     <span className="ml-2">{cmd.arg? cmd.arg : cmd.command}</span>
@@ -252,7 +252,7 @@ export default function Terminal({setTheme}:{setTheme:(arg0:string)=>void}) {
                       {commands[cmd.command] && cmd.command != "default" ? (
                         commands[cmd.command](cmd.arg?cmd.arg:undefined) || null
                       ) : (
-                        <span className="text-red-500">
+                        <span className="warn-text">
                           Command not found: {cmd.command}
                         </span>
                       )}
@@ -263,7 +263,7 @@ export default function Terminal({setTheme}:{setTheme:(arg0:string)=>void}) {
               <div ref={bottomRef}></div>
             </div>
             <form onSubmit={handleSubmit} className="p-4 flex items-center">
-              <span className="whitespace-nowrap text-[#ba88f5]">
+              <span className="whitespace-nowrap username-text">
                 ashlyn:~/portfolio{isThemeSwitcher?'/themes':''}$
               </span>
               <div className="relative ml-2 flex-1">
@@ -283,9 +283,9 @@ export default function Terminal({setTheme}:{setTheme:(arg0:string)=>void}) {
                   className="w-full bg-transparent outline-none text-transparent
                overflow-x-auto whitespace-nowrap"
                 />
-                <div className="absolute inset-0 pointer-events-none text-[#0aff0a] whitespace-pre overflow-hidden">
+                <div className="absolute inset-0 pointer-events-none terminal-text whitespace-pre overflow-hidden">
                   {command}
-                  {cursorShow && <span className="inline-block w-2 h-4 bg-[#0aff0a] animate-[blink-cursor_1.2s_infinite] ml-0.5"></span>}
+                  {cursorShow && <span className="inline-block w-2 h-4 terminal-bg animate-[blink-cursor_1.2s_infinite] ml-0.5"></span>}
                 </div>
               </div>
             </form>

@@ -18,7 +18,7 @@ const Help = () => {
       <ul>
         {
             cmdList.map((obj,index) => (
-                <li key={index} className=''><span className='text-red-500'>{obj.cmd}</span>{": "}<span>{obj.desc}</span></li>
+                <li key={index} className=''><span className='warn-text'>{obj.cmd}</span>{": "}<span>{obj.desc}</span></li>
             ))
         }
       </ul>

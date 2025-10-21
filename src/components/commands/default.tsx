@@ -7,7 +7,7 @@ const Default = () => {
       Initializing portfolio environment... done.    
     </div>
     <div>
-      Type <strong className="text-red-600">help</strong> to explore available commands.
+      Type <strong className="warn-text">help</strong> to explore available commands.
     </div>
     </>
     

@@ -13,7 +13,7 @@ export default function Home() {
 }, [theme]);
   
   return (
-    <main className="min-h-dvh w-full themed-bg text-[#0aff0a] font-mono">
+    <main className="min-h-dvh w-full themed-bg font-mono">
        {theme === 'matrix' && <MatrixCanvas/>}
       <Terminal setTheme={setTheme}/>
     </main>
