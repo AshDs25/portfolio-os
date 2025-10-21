@@ -26,7 +26,7 @@
 [data-theme="matrix"] {
   --theme-bg: #002000;
   --regular-text: #0aff0a;
-  --warn-text: #e7000b;
+  --warn-text: #ff2b2b;
   --user-line: #ba88f5;
   /* border needs to be themed */
   --border-color: #0aff0a;
@@ -38,7 +38,7 @@
 [data-theme="ubuntu"] {
   --theme-bg: #300A24;        /* official Ubuntu terminal purple */
   --regular-text: #EEEEEE;    /* light gray for text */
-  --warn-text: #FF6C37;       /* canonical orange-red warning */
+  --warn-text: #ff3c3c;       /* canonical orange-red warning */
   --user-line: #E95420;       /* Ubuntu orange prompt */
   --border-color: #E95420;    /* matching accent border */
    --scroll-thumb: rgba(238, 238, 238, 0.4);
@@ -51,7 +51,7 @@
 [data-theme="tokyo"] {
   --theme-bg: #1a1b26;        /* deep night */
   --regular-text: #c0caf5;    /* soft bluish white */
-  --warn-text: #f7768e;       /* warm pink-red for errors */
+   --warn-text: #ff4040;             /* warm pink-red for errors */
   --user-line: #7dcfff;       /* cyan-blue for prompt */
   --border-color: #414868;    /* subtle blue-gray border */
   --scroll-thumb: rgba(192, 202, 245, 0.4);
@@ -62,7 +62,7 @@
 [data-theme="one"] {
   --theme-bg: #fafafa;        /* near-white background */
   --regular-text: #383a42;    /* dark neutral gray text */
-  --warn-text: #e45649;       /* muted red */
+    --warn-text: #e60000;       /* muted red */
   --user-line: #4078f2;       /* strong blue prompt */
   --border-color: #979797;    /* subtle gray border */
   --scroll-thumb: rgba(56, 58, 66, 0.4);
