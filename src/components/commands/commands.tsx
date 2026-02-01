@@ -15,7 +15,7 @@ export const commands: Record<string, (arg?:string)=>React.ReactNode | void> = {
     },
     "get-linkedin":Redirect,
     "get-skills":Skill,
-    "get-project":Project,
+    // "get-project":Project,
     "help":Help,
     "default":Default,
     "themes":Themes,

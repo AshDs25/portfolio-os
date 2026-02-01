@@ -4,7 +4,7 @@ const Help = () => {
   const cmdList =  [
   { cmd: "about", desc: "Show a brief intro" },
   { cmd: "get-skills", desc: "Display list of skills" },
-  { cmd: "get-project", desc: "List completed projects" },
+  // { cmd: "get-project", desc: "List completed projects" },
   { cmd: "get-resume", desc: "Download Resume" },
   { cmd: "get-linkedin", desc: "Open LinkedIn profile" },
   { cmd: "git-hub", desc: "Open GitHub profile" },

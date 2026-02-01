@@ -43,7 +43,7 @@ export default function Terminal({setTheme}:{setTheme:(arg0:string)=>void}) {
 
   function triggerDownload() {
     const link = document.createElement("a");
-    link.href = "http://localhost:3000/CV.pdf";
+    link.href = "/CV.pdf";
     link.download = "ashlyn_resume.pdf";
     document.body.appendChild(link);
     link.click();
@@ -292,6 +292,13 @@ export default function Terminal({setTheme}:{setTheme:(arg0:string)=>void}) {
           </div>
         </div>
       )}
+
+      {/* <iframe
+        src="/CV.pdf"
+        width="100%"
+        height="100%"
+        className="rounded"
+      /> */}
     </>
   );
 }
