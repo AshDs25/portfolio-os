@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useEffect, useRef, useState } from "react";
 import IconWrapper from "./IconWrapper";
 import { PdfIcon, TerminalIcon } from "./svg/svg";
