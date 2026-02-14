@@ -6,21 +6,21 @@ const useDragElement = ({eleRef,childId}:{eleRef:React.RefObject<any | null>,chi
     useEffect(()=>{
         const elementToDrag = eleRef.current;
         if(elementToDrag){
-            console.log("listener addeed")
+            // console.log("listener addeed")
 
             const elementUsedForDrag = !!childId ? document.getElementById(childId) : elementToDrag
            
             function handleMouseMove(e:MouseEvent){
                 if(!elementPos.current.isDragging) return;
                 e.preventDefault();
-                console.log('mouse move')
+                // console.log('mouse move')
                 //cal new pos
                 elementPos.current.calXPos = elementPos.current.initXPos - e.clientX;
                 elementPos.current.calYPos = elementPos.current.initYPos - e.clientY;
                 elementPos.current.initXPos = e.clientX;
                 elementPos.current.initYPos = e.clientY;
 
-                console.log(elementPos.current.calYPos,elementPos.current.calXPos)
+                // console.log(elementPos.current.calYPos,elementPos.current.calXPos)
 
                 const newTop = elementToDrag.offsetTop - elementPos.current.calYPos;
                 const newLeft = elementToDrag.offsetLeft - elementPos.current.calXPos;

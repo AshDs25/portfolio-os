@@ -1,28 +1,40 @@
-'use client'
+"use client";
 
 import MatrixCanvas from "@/components/matrix/MatrixCanvas";
 import { useEffect, useState } from "react";
-import dynamic from 'next/dynamic';
-const Resume = dynamic(() => import('@/components/Resume'), {
+import dynamic from "next/dynamic";
+const Resume = dynamic(() => import("@/components/Resume"), {
   ssr: false,
 });
-const Terminal = dynamic(() => import('@/components/Terminal'), {
+const Terminal = dynamic(() => import("@/components/Terminal"), {
   ssr: false,
 });
 
 export default function Home() {
+  const [theme, setTheme] = useState<string>('matrix');
 
-  const [theme,setTheme] = useState('matrix');
+  const permittedThemes = ['matrix','tokyo','ubuntu','one']
+
+  useEffect(()=>{
+    let storedTheme = localStorage.getItem("theme") || "matrix";
+    storedTheme = permittedThemes.includes(storedTheme) ? storedTheme : 'matrix';
+    handleTheme(storedTheme)
+  },[])
 
   useEffect(() => {
-  document.documentElement.setAttribute('data-theme', theme);
-}, [theme]);
-  
+    document.documentElement.setAttribute("data-theme", theme);
+  }, [theme]);
+
+  const handleTheme = (theme: string) => {
+    setTheme(theme);
+    localStorage.setItem("theme", theme);
+  };
+
   return (
     <main className="min-h-dvh w-full themed-bg font-mono">
-      {theme === 'matrix' && <MatrixCanvas/>}
-      <Terminal setTheme={setTheme}/>
-      <Resume/>
+      {theme === "matrix" && <MatrixCanvas />}
+      <Terminal setTheme={handleTheme} />
+      <Resume />
     </main>
   );
-} 
+}
