@@ -1,5 +1,6 @@
 'use client'
 
+import Resume from "@/components/Resume";
 import Terminal from "@/components/Terminal";
 import MatrixCanvas from "@/components/matrix/MatrixCanvas";
 import { useEffect, useState } from "react";
@@ -14,8 +15,9 @@ export default function Home() {
   
   return (
     <main className="min-h-dvh w-full themed-bg font-mono">
-       {theme === 'matrix' && <MatrixCanvas/>}
+      {theme === 'matrix' && <MatrixCanvas/>}
       <Terminal setTheme={setTheme}/>
+      <Resume/>
     </main>
   );
-}
+} 

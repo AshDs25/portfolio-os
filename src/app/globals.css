@@ -7,11 +7,11 @@
 
 :root {
   --theme-bg: #000; /* default fallback */
-  --header-text:#d3d1d1;
+  --header-text: #d3d1d1;
 }
 
 .matrix-bg {
-  filter: blur(0.9px) ;
+  filter: blur(0.9px);
 }
 
 .themed-bg {
@@ -32,78 +32,92 @@
   --border-color: #0aff0a;
   --scroll-thumb: rgba(10, 255, 10, 0.4);
   --terminal-bg: #000;
-   --terminal-shadow: 0 0 25px 2px rgba(0, 255, 0, 0.25);
+  --terminal-shadow: 0 0 25px 2px rgba(0, 255, 0, 0.25);
 }
 
 [data-theme="ubuntu"] {
-  --theme-bg: #300A24;        /* official Ubuntu terminal purple */
-  --regular-text: #EEEEEE;    /* light gray for text */
-  --warn-text: #ff3c3c;       /* canonical orange-red warning */
-  --user-line: #E95420;       /* Ubuntu orange prompt */
-  --border-color: #E95420;    /* matching accent border */
-   --scroll-thumb: rgba(238, 238, 238, 0.4);
-   --terminal-bg: #3d0f2f;  
-   --terminal-shadow: 0 0 20px 2px rgba(233, 84, 32, 0.2);
-   
+  --theme-bg: #300a24; /* official Ubuntu terminal purple */
+  --regular-text: #eeeeee; /* light gray for text */
+  --warn-text: #ff3c3c; /* canonical orange-red warning */
+  --user-line: #e95420; /* Ubuntu orange prompt */
+  --border-color: #e95420; /* matching accent border */
+  --scroll-thumb: rgba(238, 238, 238, 0.4);
+  --terminal-bg: #3d0f2f;
+  --terminal-shadow: 0 0 20px 2px rgba(233, 84, 32, 0.2);
 }
 
-
 [data-theme="tokyo"] {
-  --theme-bg: #1a1b26;        /* deep night */
-  --regular-text: #c0caf5;    /* soft bluish white */
-   --warn-text: #ff4040;             /* warm pink-red for errors */
-  --user-line: #7dcfff;       /* cyan-blue for prompt */
-  --border-color: #414868;    /* subtle blue-gray border */
+  --theme-bg: #1a1b26; /* deep night */
+  --regular-text: #c0caf5; /* soft bluish white */
+  --warn-text: #ff4040; /* warm pink-red for errors */
+  --user-line: #7dcfff; /* cyan-blue for prompt */
+  --border-color: #414868; /* subtle blue-gray border */
   --scroll-thumb: rgba(192, 202, 245, 0.4);
-  --terminal-bg: #24283b;  
-  --terminal-shadow: 0 0 25px 2px rgba(125, 207, 255, 0.15);     
+  --terminal-bg: #24283b;
+  --terminal-shadow: 0 0 25px 2px rgba(125, 207, 255, 0.15);
 }
 
 [data-theme="one"] {
-  --theme-bg: #fafafa;        /* near-white background */
-  --regular-text: #383a42;    /* dark neutral gray text */
-    --warn-text: #e60000;       /* muted red */
-  --user-line: #4078f2;       /* strong blue prompt */
-  --border-color: #979797;    /* subtle gray border */
+  --theme-bg: #fafafa; /* near-white background */
+  --regular-text: #383a42; /* dark neutral gray text */
+  --warn-text: #e60000; /* muted red */
+  --user-line: #4078f2; /* strong blue prompt */
+  --border-color: #979797; /* subtle gray border */
   --scroll-thumb: rgba(56, 58, 66, 0.4);
   --terminal-bg: #f0f0f0;
-  --header-text:#383a42;
-  --terminal-shadow: 0 0 10px 6px rgba(0, 0, 0, 0.1); 
+  --header-text: #383a42;
+  --terminal-shadow: 0 0 10px 6px rgba(0, 0, 0, 0.1);
 }
 
-.terminal-shadow{
+.terminal-shadow {
   box-shadow: var(--terminal-shadow);
 }
 
-.warn-text{
-  color:var(--warn-text);
+.warn-text {
+  color: var(--warn-text);
 }
-.terminal-bg{
-  background-color:var(--terminal-bg);
+.terminal-bg {
+  background-color: var(--terminal-bg);
 }
-.username-text{
-  color:var(--user-line);
+.username-text {
+  color: var(--user-line);
 }
-.terminal-text{
-  color:var(--regular-text);
+.terminal-text {
+  color: var(--regular-text);
 }
-.terminal-border{
+.terminal-border {
   border: 1px solid var(--border-color);
 }
-.terminal-header-border{
+.terminal-header-border {
   border-bottom: 1px solid var(--border-color);
 }
-.terminal-header-text{
-  color:var(--header-text);
+.terminal-header-text {
+  color: var(--header-text);
 }
 
 @keyframes blink-cursor {
-  0%, 50% { opacity: 1; background-color: var(--regular-text); }
-  51%, 100% { opacity: 0; background-color: transparent; }
+  0%,
+  50% {
+    opacity: 1;
+    background-color: var(--regular-text);
+  }
+  51%,
+  100% {
+    opacity: 0;
+    background-color: transparent;
+  }
 }
 
 .terminal:hover::-webkit-scrollbar {
   width: 5px;
+}
+.page-controls {
+  filter: drop-shadow(0px 1 15px #454545);  
+  opacity: 0;
+  transition: opacity 0.3s ease-in;
+}
+.resume-window:hover .page-controls {
+  opacity: 1;
 }
 
 .terminal::-webkit-scrollbar-thumb {
@@ -113,4 +127,20 @@
 
 .terminal::-webkit-scrollbar-track {
   background: transparent;
+}
+.page-controls .nav-button {
+  transition:
+    background-color 0.3s ease-in,
+    color 0.3s ease-in;
+}
+.page-controls .nav-button:not(:disabled):hover {
+  background-color: var(--scroll-thumb);
+}
+.page-controls .nav-button{
+  cursor: pointer;
+}
+
+.page-controls .nav-button:disabled {
+  color: #979797;
+  cursor:default;
 }
