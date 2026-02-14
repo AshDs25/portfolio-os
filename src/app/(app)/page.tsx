@@ -1,9 +1,14 @@
 'use client'
 
-import Resume from "@/components/Resume";
-import Terminal from "@/components/Terminal";
 import MatrixCanvas from "@/components/matrix/MatrixCanvas";
 import { useEffect, useState } from "react";
+import dynamic from 'next/dynamic';
+const Resume = dynamic(() => import('@/components/Resume'), {
+  ssr: false,
+});
+const Terminal = dynamic(() => import('@/components/Terminal'), {
+  ssr: false,
+});
 
 export default function Home() {
 
