@@ -10,6 +10,8 @@ type IconWrapperProps = {
   icon: ReactNode;
   positionClassName?: string;
   title: string;
+  handleToggleShow: () => void;
+  handleToggle: () => void;
 };
 
 const IconWrapper = ({
@@ -20,20 +22,13 @@ const IconWrapper = ({
   icon,
   positionClassName,
   title,
+  handleToggleShow,
+  handleToggle
 }: IconWrapperProps) => {
   const iconRef = useRef<any | null>(null);
   useDragElement({ eleRef: iconRef });
-  const handleToggle = () => {
-    if (show && isVisible) {
-      setShow(false);
-    } else if (!show && isVisible) {
-      setShow(true);
-    }
-    // Do nothing if not visible
-  };
-  const handleToggleShow = () => {
-    if (!show && !isVisible) toggleShow();
-  };
+ 
+
   return (
     <div
       className={`flex flex-col items-center ${positionClassName} hover:drop-shadow-[0_0_10px_#fff] cursor-pointer `}

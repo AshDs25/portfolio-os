@@ -15,8 +15,12 @@ interface Command {
 
 export default function Terminal({
   setTheme,
+  assignActiveWindow,
+  activeWindow
 }: {
   setTheme: (arg0: string) => void;
+  assignActiveWindow: (arg0:string) => void;
+  activeWindow:string
 }) {
   const [command, setCommand] = useState<string>("");
   const [history, setHistory] = useState<Command[]>([]);
@@ -187,17 +191,32 @@ export default function Terminal({
 
   const toggleShow = () => {
     if (show) {
+      assignActiveWindow(activeWindow =='terminal'? '':activeWindow)
       setShow(false);
       setHistory([]);
       setShowIntro(true);
       setTimeout(() => setIsVisible(false), 300); // match transition duration
     } else {
+      assignActiveWindow('terminal')
       setIsVisible(true);
       setTimeout(() => setShow(true), 10); // allow reflow before fade in
     }
   };
   const handleShow = () => {
     setShow(!show);
+  };
+  const handleToggle = () => {
+    if (show && isVisible) {
+      assignActiveWindow(activeWindow =='terminal'? '':activeWindow)
+      setShow(false);
+    } else if (!show && isVisible) {
+      setShow(true);
+      assignActiveWindow('terminal');
+    }
+    // Do nothing if not visible
+  };
+  const handleToggleShow = () => {
+    if (!show && !isVisible) toggleShow();
   };
 
   return (
@@ -217,6 +236,8 @@ export default function Terminal({
           "fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] "
         }
         icon={<TerminalIcon/>}
+        handleToggle={handleToggle}
+        handleToggleShow={handleToggleShow}
       />
 
       {isVisible && (
@@ -227,9 +248,10 @@ export default function Terminal({
              w-full max-w-md lg:min-w-[600px]   
              flex flex-col max-h-[400px] transition-[min-height,width,opacity,color,background-color] duration-500 me-3
              ${minMax == "max" ? "min-h-[600px]" : "min-h-[400px]"}
-             ${show ? "opacity-100 z-2" : "opacity-0 -z-2"}
+             ${show ? `opacity-100 ${activeWindow == 'terminal' ? 'z-10':'z-0'}` : "opacity-0 -z-10"}
          `}
           ref={eleRef}
+          onClick={() => assignActiveWindow('terminal')}
         >
           {/*Header */}
           <div
@@ -325,13 +347,6 @@ export default function Terminal({
           </div>
         </div>
       )}
-
-      {/* <iframe
-        src="/CV.pdf"
-        width="100%"
-        height="100%"
-        className="rounded"
-      /> */}
     </>
   );
 }

@@ -8,7 +8,7 @@ import { Document, Page, pdfjs } from "react-pdf";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js`;
 
-const Resume = () => {
+const Resume = ({assignActiveWindow,activeWindow}:{assignActiveWindow:(arg0:string)=> void,activeWindow:string}) => {
   const [show, setShow] = useState<boolean>(false);
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [minMax, setMinMax] = useState<string>("max");
@@ -20,13 +20,31 @@ const Resume = () => {
 
   const toggleShow = () => {
     if (show) {
+      assignActiveWindow(activeWindow =='resume'? '':activeWindow)
       setShow(false);
       setTimeout(() => setIsVisible(false), 300); // match transition duration
     } else {
+      assignActiveWindow('resume')
       setIsVisible(true);
       setTimeout(() => setShow(true), 10); // allow reflow before fade in
     }
   };
+
+  const handleToggle = () => {
+    if (show && isVisible) {
+      assignActiveWindow(activeWindow =='resume'? '':activeWindow)
+      setShow(false);
+    } else if (!show && isVisible) {
+      assignActiveWindow('resume')
+      setShow(true);
+    }
+    // Do nothing if not visible
+  };
+  const handleToggleShow = () => {
+    if (!show && !isVisible) toggleShow();
+  };
+
+
   const handleShow = () => {
     setShow(!show);
   };
@@ -76,6 +94,8 @@ const Resume = () => {
         title={"Ashlyn Resume"}
         positionClassName={"fixed top-[2%] left-[10%] "}
         icon={<PdfIcon />}
+        handleToggle={handleToggle}
+        handleToggleShow={handleToggleShow}
       />
 
       {isVisible && (
@@ -86,9 +106,10 @@ const Resume = () => {
               w-full max-w-md lg:min-w-[800px] 
               flex flex-col max-h-[400px] transition-[min-height,width,opacity,color,background-color] duration-500
               ${minMax == "max" ? "min-h-[800px] h-[800px]" : "min-h-[400px] h-[400px]"}
-              ${show ? "opacity-100 z-2" : "opacity-0 -z-2"}
+              ${show ? `opacity-100 ${activeWindow == 'resume' ? 'z-10':'z-0'}` : "opacity-0 -z-10"}
           `}
           ref={eleRef}
+          onClick={() => assignActiveWindow('resume')}
         >
           <div
             className="flex items-center space-x-2 terminal-header-border rounded-t-[0.5rem] p-2 terminal-bg "

@@ -12,6 +12,7 @@ const Terminal = dynamic(() => import("@/components/Terminal"), {
 
 export default function Home() {
   const [theme, setTheme] = useState<string>('matrix');
+  const [activeWindow,setActiveWindow] = useState<string>('terminal');
 
   const permittedThemes = ['matrix','tokyo','ubuntu','one']
 
@@ -30,11 +31,16 @@ export default function Home() {
     localStorage.setItem("theme", theme);
   };
 
+  const assignActiveWindow = (id:string) => {
+    if(id == activeWindow) return;
+    setActiveWindow(id);
+  }
+
   return (
     <main className="min-h-dvh w-full themed-bg font-mono">
       {theme === "matrix" && <MatrixCanvas />}
-      <Terminal setTheme={handleTheme} />
-      <Resume />
+      <Terminal setTheme={handleTheme} assignActiveWindow={assignActiveWindow} activeWindow={activeWindow}/>
+      <Resume assignActiveWindow={assignActiveWindow} activeWindow={activeWindow}/>
     </main>
   );
 }
