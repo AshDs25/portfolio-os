@@ -8,7 +8,7 @@ A simple Linux terminal–style personal portfolio built using **Next.js** and *
 ![Resume Viewer](./images/resume.png)
 
 ### Dynamic Z - Index
-![Dynamic Z-Index](./images/zIndex.png)
+![Dynamic Z-Index](./images/demo.gif)
 
 ### Matrix
 ![Matrix Theme](./images/matrix.png)
@@ -23,7 +23,7 @@ A simple Linux terminal–style personal portfolio built using **Next.js** and *
 ![One Light Theme](./images/one.png)
 
 ### Draggable terminal and icon
-![Drag Icons](./images/drag.png)
+![Drag Icons](./images/demo2.gif)
 
 ### Help Menu
 ![Help Menu](./images/help.png)
