@@ -101,11 +101,11 @@ const Resume = ({assignActiveWindow,activeWindow}:{assignActiveWindow:(arg0:stri
       {isVisible && (
         <div
           className={`
-              fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]
+              fixed top-[50%] left-[30%] translate-x-[-30%] translate-y-[-50%]
               terminal-border terminal-text rounded-lg terminal-shadow
-              w-full max-w-md lg:min-w-[800px] 
-              flex flex-col max-h-[400px] transition-[min-height,width,opacity,color,background-color] duration-500
-              ${minMax == "max" ? "min-h-[800px] h-[800px]" : "min-h-[400px] h-[400px]"}
+              w-[calc(100dvw-2rem)] sm:w-full max-w-md  lg:min-w-[800px] 
+              flex flex-col max-h-[90dvh] sm:max-h-[400px] transition-[min-height,width,opacity,color,background-color] duration-500
+              ${minMax == "max" ? "min-h-[600px]" : "min-h-[400px]"}
               ${show ? `opacity-100 ${activeWindow == 'resume' ? 'z-10':'z-0'}` : "opacity-0 -z-10"}
           `}
           ref={eleRef}

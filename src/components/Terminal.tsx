@@ -5,6 +5,7 @@ import { commands } from "./commands/commands";
 import IconWrapper from "./IconWrapper";
 import useDragElement from "@/hooks/useDragElement";
 import { TerminalIcon } from "./svg/svg";
+import {themesArray} from '@/constants';
 // import MyIcon from "@/public/terminal.svg";
 
 interface Command {
@@ -26,20 +27,12 @@ export default function Terminal({
   const [history, setHistory] = useState<Command[]>([]);
   const [allHistory, setAllHistory] = useState<Command[]>([]);
   const [showIntro, setShowIntro] = useState<boolean>(true);
-  const [show, setShow] = useState<boolean>(true);
-  const [isVisible, setIsVisible] = useState<boolean>(true);
+  const [show, setShow] = useState<boolean>(false);
+  const [isVisible, setIsVisible] = useState<boolean>(false);
   const [commandPointer, setCommandPointer] = useState<number | null>(null);
   const [minMax, setMinMax] = useState("min");
   const [cursorShow, setCursorShow] = useState(false);
   const [isThemeSwitcher, setIsThemeSwitcher] = useState(false);
-
-  const themesObj: Record<string, string> = {
-    "1": "Matrix",
-    "2": "Ubuntu",
-    "3": "Tokyo",
-    "4": "One",
-    "6": "Exit",
-  };
 
   const eleRef = useRef<any | null>(null);
   useDragElement({ eleRef, childId: "header" });
@@ -83,30 +76,23 @@ export default function Terminal({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // if(command?.trim()?.toLowerCase() === '') return;
-
     const trimmedText = command?.trim()?.toLowerCase();
 
     if (trimmedText === "clear") {
       setHistory([]);
-      setAllHistory((prev) => [
-        ...prev,
-        { command: trimmedText, isTheme: isThemeSwitcher },
-      ]);
+      setAllHistory((prev) => [...prev, { command: trimmedText, isTheme: isThemeSwitcher }]);
       setCommand("");
       setShowIntro(false);
       return;
     }
 
     if (isThemeSwitcher) {
-      if (trimmedText == "6") {
-        setIsThemeSwitcher(false);
-      }
-      if (!["5", "6"].includes(trimmedText) && themesObj[trimmedText]) {
-        setTheme(themesObj[trimmedText].toLowerCase());
+      if (trimmedText === "exit") setIsThemeSwitcher(false);
+      if (!["help", "exit"].includes(trimmedText) && themesArray.includes(trimmedText?.toLowerCase())) {
+        setTheme(trimmedText?.toLowerCase());
       }
       const updateObj = {
-        command: trimmedText == "5" ? "themes" : "themesComp",
+        command: trimmedText === "help" ? "themes" : "themesComp",
         isTheme: isThemeSwitcher,
         arg: trimmedText,
       };
@@ -118,23 +104,19 @@ export default function Terminal({
 
     if (trimmedText === "themes") {
       setIsThemeSwitcher(true);
-      const updateObj = { command: trimmedText, isTheme: true };
-      setHistory((prev) => [...prev, updateObj]);
-      setAllHistory((prev) => [...prev, updateObj]);
+      setHistory((prev) => [...prev, { command: trimmedText, isTheme: true }]);
+      setAllHistory((prev) => [...prev, { command: trimmedText, isTheme: true }]);
       setCommand("");
       return;
     }
 
-    const updateObj = { command: trimmedText, isTheme: isThemeSwitcher };
-    setHistory((prev) => [...prev, updateObj]);
-    setAllHistory((prev) => [...prev, updateObj]);
+    setHistory((prev) => [...prev, { command: trimmedText, isTheme: isThemeSwitcher }]);
+    setAllHistory((prev) => [...prev, { command: trimmedText, isTheme: isThemeSwitcher }]);
+    setCommand("");
 
-    setCommand(""); // clear after submit
-
-    if (trimmedText === "default") {
-      return;
+    if (trimmedText !== "default") {
+      checkForRedirect(trimmedText);
     }
-    checkForRedirect(trimmedText);
   };
 
   useEffect(() => {
@@ -143,6 +125,11 @@ export default function Terminal({
 
   useEffect(() => {
     setCursorShow(true);
+  }, []);
+
+  useEffect(() => {
+      const isLargeScreen = window.innerWidth >= 640;
+      if(isLargeScreen) toggleShow();
   }, []);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -202,9 +189,11 @@ export default function Terminal({
       setTimeout(() => setShow(true), 10); // allow reflow before fade in
     }
   };
+
   const handleShow = () => {
     setShow(!show);
   };
+
   const handleToggle = () => {
     if (show && isVisible) {
       assignActiveWindow(activeWindow =='terminal'? '':activeWindow)
@@ -245,7 +234,7 @@ export default function Terminal({
           className={`
              fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]
              terminal-border terminal-text rounded-lg terminal-shadow
-             w-full max-w-md lg:min-w-[600px]   
+             w-[calc(100dvw-2rem)] sm:w-full max-w-md lg:min-w-[600px]   
              flex flex-col max-h-[400px] transition-[min-height,width,opacity,color,background-color] duration-500 me-3
              ${minMax == "max" ? "min-h-[600px]" : "min-h-[400px]"}
              ${show ? `opacity-100 ${activeWindow == 'terminal' ? 'z-10':'z-0'}` : "opacity-0 -z-10"}

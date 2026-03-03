@@ -1,0 +1,1 @@
+export const themesArray = ['matrix','ubuntu','tokyo night','one light','exit']

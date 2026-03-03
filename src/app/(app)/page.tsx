@@ -9,13 +9,14 @@ const Resume = dynamic(() => import("@/components/Resume"), {
 const Terminal = dynamic(() => import("@/components/Terminal"), {
   ssr: false,
 });
+import { themesArray } from "@/constants";
 
 export default function Home() {
   const [theme, setTheme] = useState<string>('matrix');
   const [activeWindow,setActiveWindow] = useState<string>('terminal');
 
-  const permittedThemes = ['matrix','tokyo','ubuntu','one']
-
+  const permittedThemes = themesArray.slice(0,themesArray.length - 1)
+  
   useEffect(()=>{
     let storedTheme = localStorage.getItem("theme") || "matrix";
     storedTheme = permittedThemes.includes(storedTheme) ? storedTheme : 'matrix';

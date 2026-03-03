@@ -4,6 +4,12 @@ A simple Linux terminal–style personal portfolio built using **Next.js** and *
 
 ### Screenshots
 
+### Resume Viewer
+![Resume Viewer](./images/resume.png)
+
+### Dynamic Z - Index
+![Dynamic Z-Index](./images/zIndex.png)
+
 ### Matrix
 ![Matrix Theme](./images/matrix.png)
 
@@ -67,3 +73,10 @@ npm start
 - **Next.js** – Framework for server-side rendering and static site generation  
 - **Tailwind CSS** – Utility-first CSS framework for styling  
 - **React** – UI component library  
+
+## Credits
+
+This project was inspired by the Portfolio OS concept created by Guillaume Reygner.  
+While the implementation is built from scratch using Next.js and Tailwind CSS, the overall idea and interface inspiration originate from his work.
+
+Original inspiration: https://github.com/guillaume-rygn/Portfolio-Terminal

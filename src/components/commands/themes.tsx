@@ -8,7 +8,7 @@ const Themes = () => {
       Welcome to theme switcher!
     </div>
     <div>
-        Select a theme!
+        Apply a theme by entering the theme name!
     </div>
     <div className='ml-[40px]'>
       

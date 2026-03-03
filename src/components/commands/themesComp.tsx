@@ -1,17 +1,14 @@
 import React from 'react'
+import {themesArray} from '@/constants';
+
+const capitalize = (str: string) => str.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
 
 const ThemesComp = ({val}:{val:string | undefined}) => {
-    const themesObj: Record<string, string> = {
-        '1':"Matrix",
-        '2':'Ubuntu',
-        '3':'Tokyo Night',
-        '4':'One Light',
-        '6':'Exit'
-    }
+    
   return (
     <>
         {
-            val && themesObj[val] ? <div>{val != '6' ? `Themes: ${themesObj[val]} Theme Applied!` :  'Exited Theme Switcher'}</div> : <div className='warn-text'>Themes: Theme not found</div>
+            val && themesArray.includes(val.toLowerCase()) ? <div>{val.toLowerCase() != 'exit' ? `Themes: ${capitalize(val)} Theme Applied!` :  'Exited Theme Switcher'}</div> : <div className='warn-text'>Themes: Theme not found</div>
         }
     </>
   )
