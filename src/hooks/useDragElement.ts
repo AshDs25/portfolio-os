@@ -7,7 +7,7 @@ const useDragElement = ({eleRef,childId}:{eleRef:React.RefObject<any | null>,chi
         const observer = new MutationObserver(() => {
             const elementToDrag = eleRef.current;
             if(elementToDrag){
-                console.log("listener added")
+                // console.log("listener added")
                 setupDragListeners(elementToDrag);
                 observer.disconnect();
             }
